@@ -8,6 +8,7 @@ const maxSeconds = 59;
 let idInterval;
 let internalSeconds = initialSecond;
 let internalMinutes = initialMinute;
+let isBreak = false;
 export default function Timer() {
   
   const [active, setActive] = useState(false);
@@ -22,6 +23,7 @@ export default function Timer() {
     setMinutes(initialMinute); 
     setSeconds(initialSecond);
     setActive(false);
+    isBreak = false;
     internalMinutes = initialMinute;
     internalSeconds = initialSecond;
   }
@@ -42,9 +44,22 @@ export default function Timer() {
     }
   }
 
+  const iniciarBreak = () => {
+    setMinutes(5); 
+    setSeconds(0);
+    setActive(true);
+    internalMinutes = 5;
+    internalSeconds = 0;
+    isBreak = true;
+  }
+
   const triggerVibration = () => {
     console.log('Vibrate'); 
-    clearInterval(idInterval);
+    if (!isBreak) {
+      iniciarBreak();
+    } else {
+      clearInterval(idInterval);
+    }
   }
 
   useEffect(() => {
