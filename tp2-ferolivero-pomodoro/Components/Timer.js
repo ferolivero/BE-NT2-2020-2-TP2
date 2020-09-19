@@ -67,9 +67,13 @@ export default function Timer() {
     }
   }, [seconds])
 
+  const leftPad = (num) => {
+    return num < 10 ? '0'+num : num;
+  }
+
   return (
     <>
-      <Text>{minutes}:{seconds}</Text>
+      <Text>{ leftPad(minutes) }:{ leftPad(seconds) }</Text>
       <Actions activarTimer={activarTimer} reiniciarTimer={reiniciarTimer} active={active}></Actions>
     </>
   );
